@@ -5,20 +5,35 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SetuHUD implements ModInitializer {
-	public static final String MOD_ID = "setuhud";
+@Environment(EnvType.CLIENT)
+public class SetuHUD implements ClientModInitializer {
+    private static final Identifier CUSTOM_IMAGE = new Identifier("setuhud", "textures/gui/image.png");
+    
+    @Override
+    public void onInitializeClient() {
+        HudRenderCallback.EVENT.register(this::renderCustomImage);
+    }
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-	@Override
-	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
-	}
+    private void renderCustomImage(MatrixStack matrices, float tickDelta) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.currentScreen != null) return; // 仅在游戏界面显示
+        
+        // 获取窗口尺寸
+        Window window = client.getWindow();
+        int width = window.getScaledWidth();
+        int height = window.getScaledHeight();
+        
+        // 设置渲染参数
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, CUSTOM_IMAGE);
+        
+        // 在右下角显示（示例位置）
+        int imageSize = 64;
+        int x = width - imageSize - 5;
+        int y = height - imageSize - 5;
+        
+        // 绘制纹理
+        DrawableHelper.drawTexture(matrices, x, y, 0, 0, imageSize, imageSize, imageSize, imageSize);
+    }
 }
