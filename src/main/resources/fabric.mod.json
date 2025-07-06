@@ -1,41 +1,24 @@
 {
-	"schemaVersion": 1,
-	"id": "setuhud",
-	"version": "${version}",
-	"name": "SetuHUD",
-	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [
-		"Me!"
-	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
-	"license": "CC0-1.0",
-	"icon": "assets/setuhud/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"dev.kanadecn.setuhud.SetuHUD"
-		],
-		"client": [
-			"dev.kanadecn.setuhud.SetuHUDClient"
-		]
-	},
-	"mixins": [
-		"setuhud.mixins.json",
-		{
-			"config": "setuhud.client.mixins.json",
-			"environment": "client"
-		}
-	],
-	"depends": {
-		"fabricloader": ">=0.16.10",
-		"minecraft": "~1.20.6",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+  "schemaVersion": 1,
+  "id": "setuhud",
+  "version": "1.0.0",
+  "name": "SetuHUD",
+  "description": "Displays a custom HUD image in Minecraft.",
+  "authors": ["kanadeCN"],
+  "contact": {
+    "homepage": "https://kanadecn.com",
+    "sources": "https://github.com/kanadeCN/SetuHUD"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.kanadecn.setuhud.SetuHUDClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": ">=1.20.1"
+  }
 }
